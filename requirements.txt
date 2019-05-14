@@ -1,0 +1,7 @@
+dvc
+pandas
+scikit-learn
+matplotlib
+seaborn
+statsmodels
+stldecompose
