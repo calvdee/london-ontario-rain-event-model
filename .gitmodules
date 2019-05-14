@@ -1,0 +1,3 @@
+[submodule "src/climate-canada-crawler"]
+	path = src/climate-canada-crawler
+	url = https://github.com/calvdee/climate-canada-crawler
