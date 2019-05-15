@@ -1,0 +1,14 @@
+md5: 3558deaa9f5bc84dea930c9b13749528
+cmd: python src/app/source_data.py data/raw/scrapy-weather-data.csv data/processed/daily-weather-data.csv
+wdir: ../..
+deps:
+- md5: 0897c84a0f65cb0cfcaf889aab286502
+  path: src/app/source_data.py
+- md5: e5a28a234a867374ff955e4d7f9b7adf
+  path: data/raw/scrapy-weather-data.csv
+outs:
+- md5: e0563407962cabda808b74cc6567a74b
+  path: data/processed/daily-weather-data.csv
+  cache: true
+  metric: false
+  persist: false
