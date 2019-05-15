@@ -1,4 +1,5 @@
 import pandas as pd
+import argparse
 
 def _season(date):
   if date.month == 12 or date.month < 3:
@@ -59,3 +60,21 @@ def add_columns(data: pd.DataFrame) -> pd.DataFrame:
   new_data['month'] = pd.Series(data.index).apply(lambda x: x.month).values
 
   return new_data
+
+if __name__ == "__main__":
+  parser = argparse.ArgumentParser()
+  parser.add_argument('input')
+  parser.add_argument('output')
+  args = parser.parse_args()
+
+  print(f'Processing input file {args.input}')
+
+  source_df = get_source_data(args.input)
+  avg_df = compute_daily_averages(source_df)
+  final_df = add_columns(avg_df)
+
+  final_df.to_csv(args.output, index=True, sep=',')
+
+  print(f'Saved file to {args.output}')
+
+  
