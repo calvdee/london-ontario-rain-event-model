@@ -2,3 +2,4 @@ commands.txt
 .venv
 .ipynb_checkpoints/
 .pytest_cache/
+.DS_Store
