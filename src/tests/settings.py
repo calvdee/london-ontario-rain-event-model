@@ -1,0 +1,1 @@
+RAW_DATA_PATH = 'data/raw/scrapy-weather-data.csv'
