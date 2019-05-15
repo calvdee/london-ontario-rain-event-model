@@ -3,3 +3,4 @@ commands.txt
 .ipynb_checkpoints/
 .pytest_cache/
 .DS_Store
+__pycache__/
