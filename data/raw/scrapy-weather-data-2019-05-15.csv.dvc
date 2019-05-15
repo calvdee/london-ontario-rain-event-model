@@ -1,0 +1,8 @@
+md5: cc5fda81009091dcedb5eb1bf2bdcd68
+wdir: ../..
+outs:
+- md5: e5a28a234a867374ff955e4d7f9b7adf
+  path: data/raw/scrapy-weather-data-2019-05-15.csv
+  cache: true
+  metric: false
+  persist: false
