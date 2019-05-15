@@ -1,0 +1,14 @@
+md5: 2fac8482a836ff8c0ab26345b4f25eeb
+cmd: python src/app/feature_data.py data/processed/daily-weather-data.csv data/processed/weekly-rain-day-counts.csv
+wdir: ../..
+deps:
+- md5: c784c7369b246c32fe3ec6c67ce67c7e
+  path: src/app/feature_data.py
+- md5: e0563407962cabda808b74cc6567a74b
+  path: data/processed/daily-weather-data.csv
+outs:
+- md5: 9cbec09b098afbd2997a1460d173ade1
+  path: data/processed/weekly-rain-day-counts.csv
+  cache: true
+  metric: false
+  persist: false
