@@ -1,6 +1,8 @@
 commands.txt
-.venv
+.DS_Store
+
+.venv/
 .ipynb_checkpoints/
 .pytest_cache/
-.DS_Store
+.vscode/
 __pycache__/
