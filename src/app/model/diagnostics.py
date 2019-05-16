@@ -1,4 +1,4 @@
-from .base import ModelResult
+from .core import ModelResult
 import matplotlib.pyplot as plt
 
 def display_results(result: ModelResult) -> None:

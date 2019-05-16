@@ -1,9 +1,8 @@
 import argparse
 import pandas as pd
 import numpy as np
-import mlflow
 
-from .base import evalute_model, score
+from .core import evalute_model, score
 from ..feature_data import load_feature_data
 
 def predict_naive(X):

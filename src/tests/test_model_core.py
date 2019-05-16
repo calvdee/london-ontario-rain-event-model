@@ -1,5 +1,5 @@
 import pandas as pd
-from src.app.model.base import evalute_model
+from src.app.model.core import evalute_model
 from settings import WEEKLY_DATA_PATH
 
 def test_evaluate_model():

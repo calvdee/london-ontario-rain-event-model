@@ -1,4 +1,4 @@
-from src.app.model.models import evalute_models
+from src.app.model.baseline_models import evalute_models
 from src.app.feature_data import load_feature_data
 from settings import WEEKLY_DATA_PATH
 
