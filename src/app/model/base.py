@@ -42,7 +42,7 @@ def score(errors: np.array) -> float:
   """
   return np.sqrt(errors**2).mean()
 
-def evalute_model(model_name: str, model: Callable[[pd.Series], pd.Series], y: pd.Series, **args) -> Tuple:
+def evalute_model(model_name: str, model: Callable[[pd.DataFrame], pd.Series], y: pd.Series, **args) -> Tuple:
   """Generates predictions using the model and displays the results.
   
   Args:
