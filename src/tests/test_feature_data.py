@@ -19,7 +19,7 @@ def test_save_weekly_rain_day_counts(tmp_path):
   assert len(path_counts) > 0
 
 def test_load_weekly_rain_day_counts():
-  counts = prepare_weekly_rain_day_counts(DAILY_DATA_PATH)
+  counts = prepare_weekly_rain_day_counts(DAILY_DATA_PATH).set_index('date')
   file_counts = load_feature_data(WEEKLY_DATA_PATH)
 
   assert len(file_counts) > 0

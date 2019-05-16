@@ -29,7 +29,7 @@ def load_feature_data(feature_path: str) -> pd.DataFrame:
   # Putting the `get` function inside the same module as the `prepare` function
   # helps align reading and writing the data (using e.g. the same arguments to 
   # the CSV method)
-  data = pd.read_csv(feature_path)
+  data = pd.read_csv(feature_path).set_index('date')
   return data
 
 if __name__ == "__main__":
