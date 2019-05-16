@@ -36,22 +36,22 @@ def optimize_ma_k(weekly_counts):
 def evalute_models(X: pd.DataFrame):
   experiment_id = mlflow.set_experiment('baseline_models')
 
-  with mlflow.start_run(run_name='naive'):
-    naive_results = evalute_model('Naive', predict_naive, X)
-    print('Naive score:', naive_results.score)
-    mlflow.log_metric('rmse', naive_results.score)
+  models = zip(
+    ['naive', 'seasonal_naive', 'moving_average'],
+    [predict_naive, predict_snaive, predict_ma])
 
-  with mlflow.start_run(run_name='seasonal_naive'):
-    snaive_results = evalute_model('Seasonal Naive', predict_snaive, X)
-    print('Seasonal naive score:', snaive_results.score)
-    mlflow.log_metric('rmse', snaive_results.score)
+  best_model = ('',1e10)
 
-  with mlflow.start_run(run_name='moving_average'):
-    best_k = optimize_ma_k(X)
-    ma_results = evalute_model('Moving Average', predict_ma, X)
-    print(f'MA score (k={best_k}):', ma_results.score)
-    mlflow.log_param('k', best_k)
-    mlflow.log_metric('rmse', ma_results.score)
+  for name, model in models:
+    with mlflow.start_run(run_name=name):
+      result = evalute_model(name, model, X)
+      # print(f'{name} score:', result.score)
+      mlflow.log_metric('rmse', result.score)
+
+      if result.score < best_model[1]:
+        best_model = (name, result.score)
+
+  return best_model
 
 if __name__ == "__main__":
   parser = argparse.ArgumentParser()
@@ -60,11 +60,12 @@ if __name__ == "__main__":
   args = parser.parse_args()
   
 
-  print(f'Evaluating models with data from file {args.input}')
+  # print(f'Evaluating models with data from file {args.input}')
 
   X = load_feature_data(args.input)
-  evalute_models(X)
+  best_model = evalute_models(X)
 
+  print(f'Best model: {best_model[0]}, RMSE: {best_model[1].round(3)}')
   # output = prepare_weekly_rain_day_counts(args.input)
 
   # output.to_csv(args.output, index=False, sep=',')

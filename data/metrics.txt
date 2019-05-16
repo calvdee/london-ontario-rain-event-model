@@ -1,0 +1,1 @@
+Best model: moving_average, RMSE: 1.613
