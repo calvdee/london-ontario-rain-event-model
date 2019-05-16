@@ -17,6 +17,21 @@ def prepare_weekly_rain_day_counts(source_path: str) -> pd.DataFrame:
 
   return rain_counts
 
+def save_feature_data(data: pd.DataFrame, feature_path: str) -> str:
+  """ Saves the data to the `feature_path`.
+  """
+  data.to_csv(feature_path, index=False, sep=',')
+  return feature_path
+
+def load_feature_data(feature_path: str) -> pd.DataFrame:
+  """ Loads the data from `feature_path`.
+  """
+  # Putting the `get` function inside the same module as the `prepare` function
+  # helps align reading and writing the data (using e.g. the same arguments to 
+  # the CSV method)
+  data = pd.read_csv(feature_path)
+  return data
+
 if __name__ == "__main__":
   parser = argparse.ArgumentParser()
   parser.add_argument('input')
@@ -27,6 +42,6 @@ if __name__ == "__main__":
 
   output = prepare_weekly_rain_day_counts(args.input)
 
-  output.to_csv(args.output, index=False, sep=',')
+  save_feature_data(output, args.output)
 
   print(f'Saved file to {args.output}')
