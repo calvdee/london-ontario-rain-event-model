@@ -7,3 +7,6 @@ clean-pyc:
 
 clean-notebooks:
 	find . -name '.ipynb_checkpoints' -exec rm -rf {} +
+
+clean-mlflow:
+	rm -rf mlruns

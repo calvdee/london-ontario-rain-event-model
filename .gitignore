@@ -1,6 +1,7 @@
 commands.txt
 .DS_Store
 
+mlruns/
 .venv/
 .ipynb_checkpoints/
 .pytest_cache/

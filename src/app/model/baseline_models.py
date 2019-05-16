@@ -1,6 +1,7 @@
 import argparse
 import pandas as pd
 import numpy as np
+import mlflow
 
 from .core import evalute_model, score
 from ..feature_data import load_feature_data
@@ -33,21 +34,31 @@ def optimize_ma_k(weekly_counts):
   return best_k
 
 def evalute_models(X: pd.DataFrame):
-  naive_results = evalute_model('Naive', predict_naive, X)
-  print('Naive score:', naive_results.score)
-  
-  snaive_results = evalute_model('Seasonal Naive', predict_snaive, X)
-  print('Seasonal naive score:', snaive_results.score)
+  experiment_id = mlflow.set_experiment('baseline_models')
 
-  best_k = optimize_ma_k(X)
-  ma_results = evalute_model('Moving Average', predict_ma, X)
-  print(f'MA score (k={best_k}):', ma_results.score)
+  with mlflow.start_run(run_name='naive'):
+    naive_results = evalute_model('Naive', predict_naive, X)
+    print('Naive score:', naive_results.score)
+    mlflow.log_metric('rmse', naive_results.score)
+
+  with mlflow.start_run(run_name='seasonal_naive'):
+    snaive_results = evalute_model('Seasonal Naive', predict_snaive, X)
+    print('Seasonal naive score:', snaive_results.score)
+    mlflow.log_metric('rmse', snaive_results.score)
+
+  with mlflow.start_run(run_name='moving_average'):
+    best_k = optimize_ma_k(X)
+    ma_results = evalute_model('Moving Average', predict_ma, X)
+    print(f'MA score (k={best_k}):', ma_results.score)
+    mlflow.log_param('k', best_k)
+    mlflow.log_metric('rmse', ma_results.score)
 
 if __name__ == "__main__":
   parser = argparse.ArgumentParser()
   parser.add_argument('input')
   # parser.add_argument('output')
   args = parser.parse_args()
+  
 
   print(f'Evaluating models with data from file {args.input}')
 
