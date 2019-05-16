@@ -7,7 +7,13 @@ def prepare_weekly_rain_day_counts(source_path: str) -> pd.DataFrame:
   """
   source = pd.read_csv(source_path, parse_dates=['date']).set_index('date')
   rain_days = source.query('totalPrecipMM >= 0.2')
-  rain_counts = rain_days.resample('1W', label='left').size()
+  rain_counts = (
+    rain_days
+      .resample('1W', label='left')
+      .size()
+      .rename('rainEvents')
+      .reset_index()
+  )
 
   return rain_counts
 
@@ -21,6 +27,6 @@ if __name__ == "__main__":
 
   output = prepare_weekly_rain_day_counts(args.input)
 
-  output.to_csv(args.output, index=True, sep=',')
+  output.to_csv(args.output, index=False, sep=',')
 
   print(f'Saved file to {args.output}')
