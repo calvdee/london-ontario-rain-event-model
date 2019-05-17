@@ -1,6 +1,5 @@
 import pandas as pd
 import numpy as np
-from typing import Callable
 from typing import Tuple
 
 class ModelResult(object):
@@ -57,38 +56,3 @@ def get_evaluation_stats(results: pd.DataFrame) -> pd.Series:
   stats['99%'] = results.quantile(.99)
 
   return stats
-
-def predict(model: Callable[[pd.DataFrame], pd.Series], y: pd.Series, **args) -> pd.DataFrame:
-  """ Generates model predict by executing the Callable with `y` and args.
-
-  Args:
-    model: A function that accepts a dataframe and returns a
-           sequence of predictions.
-    y: Observed values.
-
-  Returns:
-    Model prediction results.
-  """
-  y_pred = model(y, **args)
-  results = results_df(y['rainEvents'], y_pred).round(0)
-
-  return results
-
-
-def evalute_model(model_name: str, model: Callable[[pd.DataFrame], pd.Series], y: pd.Series, **args) -> ModelResult:
-  """Generates predictions using the model and displays the results.
-  
-  Args:
-    name: The name of the model.
-    model: A model that accepts a series that it uses to make predictions.
-    y: The target values.
-  
-  Returns: A tuple with information about the model evaluation.
-  """
-  results = predict(model, y)
-  
-  model_score = score(results['error'])
-  stats = get_evaluation_stats(results['error']).rename(model_name)
-  result = ModelResult(model_name, model_score, stats, results)
-
-  return result
