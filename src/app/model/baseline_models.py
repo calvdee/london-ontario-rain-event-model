@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 import mlflow
 
-from .core import evalute_model, score
+from .core import evalute_model, score, ModelResult
 from ..feature_data import load_feature_data
 
 def predict_naive(X):
@@ -33,14 +33,14 @@ def optimize_ma_k(weekly_counts):
 
   return best_k
 
-def evalute_models(X: pd.DataFrame):
+def evalute_models(X: pd.DataFrame) -> ModelResult:
   experiment_id = mlflow.set_experiment('baseline_models')
 
   models = zip(
     ['naive', 'seasonal_naive', 'moving_average'],
     [predict_naive, predict_snaive, predict_ma])
 
-  best_model = ('',1e10)
+  best_result = ModelResult('', 1e10, None, None)
 
   for name, model in models:
     with mlflow.start_run(run_name=name):
@@ -48,10 +48,10 @@ def evalute_models(X: pd.DataFrame):
       # print(f'{name} score:', result.score)
       mlflow.log_metric('rmse', result.score)
 
-      if result.score < best_model[1]:
-        best_model = (name, result.score)
+      if result.score < best_result.score:
+        best_result = result
 
-  return best_model
+  return best_result
 
 if __name__ == "__main__":
   parser = argparse.ArgumentParser()
@@ -65,7 +65,9 @@ if __name__ == "__main__":
   X = load_feature_data(args.input)
   best_model = evalute_models(X)
 
-  print(f'Best model: {best_model[0]}, RMSE: {best_model[1].round(3)}')
+  print(best_model.name)
+  print('RMSE:', best_model.score.round(3))
+  print(best_model.stats[['mean', '50%', '95%', '99%', 'max']])
   # output = prepare_weekly_rain_day_counts(args.input)
 
   # output.to_csv(args.output, index=False, sep=',')

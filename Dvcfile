@@ -1,12 +1,14 @@
-md5: e1c98d052e1ebcf022b2fed6a9f8ea75
+md5: b7cdff51f10dd51c9f6f3b7185c60b1a
+cmd: $(python -m src.app.model.baseline_models data/processed/weekly-rain-day-counts.csv
+  > data/metrics.txt)
 wdir: .
 deps:
-- md5: 2cc3c6bcc506205458edcc9498c449c7
+- md5: 547a58319ef31e68b71a16ba97bee1b1
   path: src/app/model/baseline_models.py
 - md5: c4d05dfb6e2403ee9fa4bee01d088cf7
   path: data/processed/weekly-rain-day-counts.csv
 outs:
-- md5: d5906489de0aac45f53e410c05046ca6
+- md5: 36c0bdf165aa950f5d6695104d3a7c67
   path: data/metrics.txt
   cache: false
   metric: true

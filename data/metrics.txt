@@ -1,1 +1,8 @@
-Best model: moving_average, RMSE: 1.613
+moving_average
+RMSE: 1.613
+mean   -0.264344
+50%     0.000000
+95%     3.000000
+99%     4.000000
+max     6.000000
+Name: moving_average, dtype: float64
