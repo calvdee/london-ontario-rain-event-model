@@ -9,7 +9,7 @@ def prepare_weekly_rain_day_counts(source_path: str) -> pd.DataFrame:
   rain_days = source.query('totalPrecipMM >= 0.2')
   rain_counts = (
     rain_days
-      .resample('1W', label='left')
+      .resample('W-MON', label='left', closed='left')
       .size()
       .rename('rainEvents')
       .reset_index()
@@ -29,7 +29,7 @@ def load_feature_data(feature_path: str) -> pd.DataFrame:
   # Putting the `get` function inside the same module as the `prepare` function
   # helps align reading and writing the data (using e.g. the same arguments to 
   # the CSV method)
-  data = pd.read_csv(feature_path).set_index('date')
+  data = pd.read_csv(feature_path, parse_dates=['date']).set_index('date')
   return data
 
 if __name__ == "__main__":
