@@ -7,7 +7,7 @@ from .core import score, results_df, get_evaluation_stats, ModelResult
 from ..feature_data import load_feature_data
 from typing import Callable
 
-def predict(model: Callable[[pd.DataFrame], pd.Series], x: pd.Series, **args) -> pd.DataFrame:
+def predict(model: Callable[[pd.DataFrame], pd.Series], x: pd.DataFrame, **args) -> pd.DataFrame:
   """ Generates model predict by executing the Callable with `x` and args.
 
   Args:
