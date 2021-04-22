@@ -104,4 +104,4 @@ websocket-client==0.56.0
 Werkzeug==0.15.4
 zc.lockfile==1.4
 zope.interface==4.6.0
-tscv==0.0.2
+tscv==0.1.2
