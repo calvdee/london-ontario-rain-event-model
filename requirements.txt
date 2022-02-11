@@ -96,7 +96,7 @@ statsmodels==0.9.0
 stldecompose==0.0.5
 tabulate==0.8.3
 treelib==1.5.5
-Twisted==19.2.0
+Twisted==22.1.0
 urllib3==1.24.3
 w3lib==1.20.0
 wcwidth==0.1.7
