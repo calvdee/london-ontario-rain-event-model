@@ -49,7 +49,7 @@ lxml==4.3.3
 MarkupSafe==1.1.1
 matplotlib==3.0.3
 mleap==0.8.1
-mlflow==0.9.1
+mlflow==1.23.1
 more-itertools==7.0.0
 nanotime==0.5.2
 networkx==2.3
